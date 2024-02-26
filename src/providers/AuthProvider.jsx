@@ -15,12 +15,11 @@ const AuthContext = createContext({
 
 export const useAuth = () => {
   const authContext = useContext(AuthContext)
-  const [users, setUsers] = useState(data)
-  const [user, setUser] = useState(authContext.currentUser)
-  const [isSignedIn, setIsSignedIn] = useState(authContext.isSignedIn)
+  let [users, setUsers] = useState(data)
+  let [user, setUser] = useState(authContext.currentUser)
+  let [isSignedIn, setIsSignedIn] = useState(authContext.isSignedIn)
 
   const login = ({ username, password }) => {
-    console.log(users)
     const user = users.find(
       (user) => user.username === username && user.password === password
     )
@@ -66,6 +65,7 @@ export const useAuth = () => {
 
   return {
     user,
+    users,
     login,
     logout,
     addUser,

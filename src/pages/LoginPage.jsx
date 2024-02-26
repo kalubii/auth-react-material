@@ -1,16 +1,16 @@
 import { CheckCircleOutline, Lock } from '@mui/icons-material'
 import {
-    Alert,
-    Avatar,
-    Box,
-    Button,
-    Checkbox,
-    Container,
-    CssBaseline,
-    FormControlLabel,
-    Grid,
-    TextField,
-    Typography
+  Alert,
+  Avatar,
+  Box,
+  Button,
+  Checkbox,
+  Container,
+  CssBaseline,
+  FormControlLabel,
+  Grid,
+  TextField,
+  Typography
 } from '@mui/material'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
@@ -42,7 +42,6 @@ const LoginPage = () => {
       }, 1500) //  5000 millisecondes =  5 secondes
     } else {
       setMessage('Incorrect username or password')
-      console.error('Email ou mot de passe incorrect')
     }
   }
 
