@@ -1,4 +1,4 @@
-import { CheckCircleOutline, Lock } from '@mui/icons-material'
+import { Error, Lock } from '@mui/icons-material'
 import {
   Alert,
   Avatar,
@@ -33,15 +33,19 @@ const LoginPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    setMessage('')
 
-    const user = login({ username: etat.username, password: etat.password })
-
-    if (user) {
+    try {
+      const user = login({ username: etat.username, password: etat.password })
+      if (user) {
+        setTimeout(() => {
+          navigate('/Dashboard')
+        }, 1500) //  5000 millisecondes =  5 secondes
+      }
+    } catch (error) {
       setTimeout(() => {
-        navigate('/Dashboard')
-      }, 1500) //  5000 millisecondes =  5 secondes
-    } else {
-      setMessage('Incorrect username or password')
+        setMessage('Incorrect username or password')
+      }, 1500)
     }
   }
 
@@ -103,7 +107,7 @@ const LoginPage = () => {
           </Button>
           {message && (
             <Alert
-              icon={<CheckCircleOutline fontSize="inherit" />}
+              icon={<Error fontSize="inherit" />}
               severity="error">
               {message}
             </Alert>

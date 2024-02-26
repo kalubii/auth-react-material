@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../providers/AuthProvider'
 
 export default function MenuAppBar() {
-  const { isSignedIn } = useAuth()
+  const { isSignedIn, logout } = useAuth()
   const [anchorEl, setAnchorEl] = React.useState(null)
 
   const navigate = useNavigate()
@@ -28,7 +28,12 @@ export default function MenuAppBar() {
   }
 
   const handleLogin = () => {
-    navigate("/login")
+    navigate('/login')
+  }
+
+  const handleLogout = () => {
+    logout()
+    navigate('/')
   }
 
   return (
@@ -73,6 +78,7 @@ export default function MenuAppBar() {
                 onClose={handleClose}>
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </div>
           ) : (
