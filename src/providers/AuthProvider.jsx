@@ -43,6 +43,7 @@ export const useAuth = () => {
 
   const addUser = ({ username, email, password }) => {
     users.push({ userId: uuidv4(), username, email, password })
+    setUsers(users)
   }
 
   const removeUser = (userId) => {
