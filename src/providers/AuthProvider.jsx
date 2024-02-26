@@ -46,24 +46,31 @@ const AuthProvider = ({ children }) => {
   }
 
   const addUser = ({ username, email, password }) => {
-    users.push({ userId: uuidv4(), username, email, password })
-    setUsers(users)
+    setUsers([...users, { userId: uuidv4(), username, email, password }])
   }
 
   const removeUser = (userId) => {
-    setUsers(users.filter((user) => user.userId !== userId))
+    const newUsersList = []
+    users.forEach((user) => {
+      if (user.userId !== userId) {
+        newUsersList.push(user)
+      }
+    })
+    setUsers(newUsersList)
   }
 
   const updateUser = (userId, { username, email, password }) => {
+    console.log(userId, { username, email, password })
+
     const newUsersList = users.map((user) =>
-      user.userId !== userId
-        ? user
-        : {
+      user.userId == userId
+        ? {
             userId: user.userId,
-            username: username ?? user.username,
-            email: email ?? user.email,
-            password: password ?? user.password
+            username,
+            email,
+            password
           }
+        : user
     )
     setUsers(newUsersList)
   }

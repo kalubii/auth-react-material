@@ -8,15 +8,12 @@ import Slide from '@mui/material/Slide'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import * as React from 'react'
-import { useAuth } from '../providers/AuthProvider'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />
 })
 
-export default function AddUser() {
-  const { addUser } = useAuth()
-
+export default function AddUser({ addUser }) {
   const [open, setOpen] = React.useState(false)
 
   const handleClickOpen = () => {
@@ -28,9 +25,9 @@ export default function AddUser() {
   }
 
   const [state, setState] = React.useState({
-    username: "",
-    email: "",
-    password: ""
+    username: '',
+    email: '',
+    password: ''
   })
 
   const handleSubmit = (e) => {

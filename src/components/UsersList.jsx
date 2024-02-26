@@ -23,32 +23,29 @@ const rows = [
 ]
 
 export default function UsersList() {
-  const { users } = useAuth()
-
-  React.useEffect(() => {
-    console.log(users)
-  
-    return () => {
-      
-    }
-  }, [users])
-  
+  const { users, addUser, removeUser, updateUser } = useAuth()
 
   return (
     <>
-      <AddUser />
+      <AddUser addUser={addUser} />
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell>Username</TableCell>
               <TableCell>Email</TableCell>
+              <TableCell>Password</TableCell>
               <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {users.map((user, key) => (
-              <UserItem key={key} user={user} />
+              <UserItem
+                key={key}
+                user={user}
+                updateUser={updateUser}
+                removeUser={removeUser}
+              />
             ))}
           </TableBody>
         </Table>

@@ -10,7 +10,6 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import { alpha, styled } from '@mui/material/styles'
 import * as React from 'react'
-import { useAuth } from '../providers/AuthProvider'
 import UpdateUser from './UpdateUser'
 
 const StyledMenu = styled((props) => (
@@ -119,8 +118,7 @@ function CustomizedMenus({ onEdit, onArchive }) {
   )
 }
 
-const UserItem = ({ user }) => {
-  const { removeUser } = useAuth()
+const UserItem = ({ user, removeUser, updateUser }) => {
 
   const [inEditMode, setInEditMode] = React.useState(false)
 
@@ -129,7 +127,7 @@ const UserItem = ({ user }) => {
   }
 
   const handleOnArchive = () => {
-    removeUser(user.id)
+    removeUser(user.userId)
   }
 
   const handleClose = () => {
@@ -138,13 +136,18 @@ const UserItem = ({ user }) => {
 
   return (
     <>
-      {inEditMode && <UpdateUser user={user} onClose={handleClose} />}
+      {inEditMode && (
+        <UpdateUser user={user} updateUser={updateUser} onClose={handleClose} />
+      )}
       <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
         <TableCell component="th" scope="row">
           {user.username}
         </TableCell>
         <TableCell component="th" scope="row">
           {user.email}
+        </TableCell>
+        <TableCell component="th" scope="row">
+          {user.password}
         </TableCell>
         <TableCell component="th" scope="row">
           <CustomizedMenus onEdit={handleOnEdit} onArchive={handleOnArchive} />
