@@ -15,9 +15,13 @@ const AuthContext = createContext({
 
 export const useAuth = () => {
   const authContext = useContext(AuthContext)
-  let [users, setUsers] = useState(data)
-  let [user, setUser] = useState(authContext.currentUser)
-  let [isSignedIn, setIsSignedIn] = useState(authContext.isSignedIn)
+  return authContext
+}
+
+const AuthProvider = ({ children }) => {
+  const [users, setUsers] = useState(data)
+  const [user, setUser] = useState(null)
+  const [isSignedIn, setIsSignedIn] = useState(null)
 
   const login = ({ username, password }) => {
     const user = users.find(
@@ -51,34 +55,33 @@ export const useAuth = () => {
   }
 
   const updateUser = (userId, { username, email, password }) => {
-    setUsers(
-      users.map((user) =>
-        user.userId !== userId
-          ? user
-          : {
-              username: username ?? user.username,
-              email: email ?? user.email,
-              password: password ?? user.password
-            }
-      )
+    const newUsersList = users.map((user) =>
+      user.userId !== userId
+        ? user
+        : {
+            userId: user.userId,
+            username: username ?? user.username,
+            email: email ?? user.email,
+            password: password ?? user.password
+          }
     )
+    setUsers(newUsersList)
   }
 
-  return {
-    user,
-    users,
-    login,
-    logout,
-    addUser,
-    removeUser,
-    updateUser,
-    isSignedIn
-  }
-}
-
-const AuthProvider = ({ children }) => {
   return (
-    <AuthContext.Provider value={useAuth()}>{children}</AuthContext.Provider>
+    <AuthContext.Provider
+      value={{
+        users,
+        user,
+        isSignedIn,
+        login,
+        logout,
+        addUser,
+        removeUser,
+        updateUser
+      }}>
+      {children}
+    </AuthContext.Provider>
   )
 }
 

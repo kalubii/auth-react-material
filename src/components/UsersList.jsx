@@ -8,6 +8,7 @@ import TableRow from '@mui/material/TableRow'
 import * as React from 'react'
 import { useAuth } from '../providers/AuthProvider'
 import AddUser from './AddUser'
+import UserItem from './UserItem'
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein }
@@ -25,7 +26,7 @@ export default function UsersList() {
   const { users } = useAuth()
 
   React.useEffect(() => {
-    console.log(users.length)
+    console.log(users)
   
     return () => {
       
@@ -42,20 +43,12 @@ export default function UsersList() {
             <TableRow>
               <TableCell>Username</TableCell>
               <TableCell>Email</TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {users.map((user, key) => (
-              <TableRow
-                key={key}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                <TableCell component="th" scope="row">
-                  {user.username}
-                </TableCell>
-                <TableCell component="th" scope="row">
-                  {user.email}
-                </TableCell>
-              </TableRow>
+              <UserItem key={key} user={user} />
             ))}
           </TableBody>
         </Table>
